@@ -12,6 +12,8 @@
     <link href="css/ratchet.min.css" rel="stylesheet">
     <!-- Include the compiled Ratchet JS -->
     <script src="js/ratchet.min.js"></script>
+
+    <script src="js/zepto.min.js"></script>
     <!-- API DE LOCALIZAÇÃO DO GOOGLE -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script> 
   </head>
@@ -38,17 +40,6 @@
         }
 
         function mostrarTela(position){
-            var html ='Latitude: ' + position.coords.latitude         + '<br />' +
-                      'Longitude: '         + position.coords.longitude         + '<br />' +
-                      'Altitude: '          + position.coords.altitude          + '<br />' +
-                      'Precisão: '          + position.coords.accuracy          + '<br />' +
-                      'Precisão de altitude: ' + position.coords.altitudeAccuracy  + '<br />' +
-                      'Direção: '           + position.coords.heading           + '<br />' +
-                      'Velocidade: '        + position.coords.speed             + '<br />' +
-                      'Timestamp: '         + new Date(position.timestamp)      + '<br />';
-            var result = document.getElementById("result");
-            result.innerHTML = html;
-
             //Obter cidade
             geocoder = new google.maps.Geocoder();
             var lat = parseFloat(position.coords.latitude);
@@ -63,9 +54,7 @@
                   // iterate through address_component array
                   $.each(arrAddress, function (i, address_component) {
                     if (address_component.types[0] == "locality") {
-                      nomeCidade = 'Cidade: ' +  address_component.long_name; // city
-                      var paragrafoNomeCidade = document.getElementById("nome-cidade");
-                      paragrafoNomeCidade.innerHTML = nomeCidade;
+                      nomeCidade = address_component.long_name; // city
                       return false; // break
                     }
                   });
@@ -76,6 +65,18 @@
                 alert("Geocoder failed due to: " + status);
               }
             });
+
+            var html ='Latitude: ' + position.coords.latitude         + '<br />' +
+                      'Longitude: '         + position.coords.longitude         + '<br />' +
+                      'Altitude: '          + position.coords.altitude          + '<br />' +
+                      'Precisão: '          + position.coords.accuracy          + '<br />' +
+                      'Precisão de altitude: ' + position.coords.altitudeAccuracy  + '<br />' +
+                      'Direção: '           + position.coords.heading           + '<br />' +
+                      'Velocidade: '        + position.coords.speed             + '<br />' +
+                      'Timestamp: '         + new Date(position.timestamp)      + '<br />' +
+                      'Cidade: '         + nomeCidade + '<br />';
+            var result = document.getElementById("result");
+            result.innerHTML = html;
         }
 
         function fail(error){
