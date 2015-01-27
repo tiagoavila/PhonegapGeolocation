@@ -34,7 +34,7 @@
         var geocoder;
 
         function iniciarCaptura(){
-            watchID = navigator.geolocation.watchPosition(mostrarTela, fail, { timeout: 30000 });
+            watchID = navigator.geolocation.getCurrentPosition(mostrarTela, fail, { timeout: 30000 });
         }
 
         function mostrarTela(position){
