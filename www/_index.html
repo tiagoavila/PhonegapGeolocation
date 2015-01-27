@@ -1,32 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Ratchet template page</title>
-    <!-- Sets initial viewport load and disables zooming  -->
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <!-- Include the compiled Ratchet CSS -->
-    <link href="css/ratchet.min.css" rel="stylesheet">
-    <!-- Include the compiled Ratchet JS -->
-    <script src="js/ratchet.min.js"></script>
-  </head>
-  <body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Accelerometer</title>
+    </head>
+    <body>
+        <input type="button" value="Iniciar Captura" onClick="iniciarCaptura()">
+        <input type="button" value="Parar Captura" onClick="pararCaptura()"> <br>
+        <br/>
+        <span id="result"></span>
 
-    <!-- Make sure all your bars are the first things in your <body> -->
-    <header class="bar bar-nav">
-      <h1 class="title">Geolocation</h1>
-    </header>
-    <div class="content">
-      <div class="bar bar-standard">
-        <button class="btn btn-block btn-primary" onClick="iniciarCaptura()">Obter localização</button><br/>
-        <button class="btn btn-block btn-negative" onClick="pararCaptura()">Parar captura</button>
-      </div>
-      <p class="content-padded" id="result" style="margin-top: 100px;"></p>
-    </div>
-    <script type="text/javascript">
+        <script type="text/javascript">
+
         var watchID;
 
         function iniciarCaptura(){
@@ -61,6 +50,7 @@
             }
 
         }
-      </script>
-  </body>
+
+        </script>
+    </body>
 </html>
