@@ -30,7 +30,6 @@
       </div>
       <p class="content-padded" id="result" style="margin-top: 100px;"></p>
       <p class="content-padded" id="nome-cidade"></p>
-      <p class="content-padded" id="nome-estado"></p>
     </div>
     <script type="text/javascript">
         var watchID;
@@ -68,15 +67,9 @@
                         $.each(arrAddress, function (i, address_component) {
                             if (address_component.types[0] == "locality") {
                                 nomeCidade = address_component.long_name; // city
+                                nomeEstado = address_component.short_name;
                                 var paragrafoCidade = document.getElementById("nome-cidade");
-                                paragrafoCidade.innerHTML = 'Cidade: ' + nomeCidade;
-                                return false; // break
-                            }
-                            if (address_component.types[0] == "administrative_area_level_1") {
-                                alert(address_component.long_name);
-                                nomeEstado = address_component.long_name; // city
-                                var paragrafoEstado = document.getElementById("nome-estado");
-                                paragrafoEstado.innerHTML = 'Estado: ' + nomeEstado;
+                                paragrafoCidade.innerHTML = 'Cidade: ' + nomeCidade + '/' + nomeEstado;
                                 return false; // break
                             }
                         });
