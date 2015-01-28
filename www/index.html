@@ -59,27 +59,26 @@
             var latlng = new google.maps.LatLng(lat, lng);
             var nomeCidade = "teste";            
             geocoder.geocode({'latLng': latlng}, function(results, status) {
-              if (status == google.maps.GeocoderStatus.OK) {
-                if (results[0]) {
-                  var arrAddress = results[0].address_components;
-                  // iterate through address_component array
-                  $.each(arrAddress, function (i, address_component) {
-                    if (address_component.types[0] == "locality") {
-                      nomeCidade = address_component.long_name; // city
-                      alert(nomeCidade);
-                      return false; // break
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                      var arrAddress = results[0].address_components;
+                      // iterate through address_component array
+                        $.each(arrAddress, function (i, address_component) {
+                            if (address_component.types[0] == "locality") {
+                                nomeCidade = address_component.long_name; // city
+                                var paragrafoCidade = document.getElementById("nome-cidade");
+                                var textoParagrafoCidade = 'Cidade: ' + nomeCidade;
+                                paragrafoCidade.innerHTML = textoParagrafoCidade;
+                                return false; // break
+                            }
+                        });
+                    } else {
+                      alert("No results found");
                     }
-                  });
                 } else {
-                  alert("No results found");
+                    alert("Geocoder failed due to: " + status);
                 }
-              } else {
-                alert("Geocoder failed due to: " + status);
-              }
             });
-            var paragrafoCidade = document.getElementById("nome-cidade");
-            var textoParagrafoCidade = 'Cidade: ' + nomeCidade;
-            paragrafoCidade.innerHTML = textoParagrafoCidade;
         }
 
         function fail(error){
