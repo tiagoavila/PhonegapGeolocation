@@ -48,12 +48,14 @@
             var latlng = new google.maps.LatLng(lat, lng);
             var nomeCidade = "";            
             geocoder.geocode({'latLng': latlng}, function(results, status) {
+                alert("opa");
               if (status == google.maps.GeocoderStatus.OK) {
                 if (results[0]) {
                   var arrAddress = results[0].address_components;
                   // iterate through address_component array
                   $.each(arrAddress, function (i, address_component) {
                     if (address_component.types[0] == "locality") {
+                      alert(address_component.long_name);
                       nomeCidade = address_component.long_name; // city
                       return false; // break
                     }
