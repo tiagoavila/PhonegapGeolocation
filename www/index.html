@@ -57,8 +57,7 @@
             var lng = parseFloat(position.coords.longitude);
 
             var latlng = new google.maps.LatLng(lat, lng);
-            var nomeCidade = "";    
-            var nomeEstado = "";        
+            var nomeCidade = "";           
             geocoder.geocode({'latLng': latlng}, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     if (results[0]) {
@@ -67,9 +66,8 @@
                         $.each(arrAddress, function (i, address_component) {
                             if (address_component.types[0] == "locality") {
                                 nomeCidade = address_component.long_name; // city
-                                nomeEstado = address_component.short_name;
                                 var paragrafoCidade = document.getElementById("nome-cidade");
-                                paragrafoCidade.innerHTML = 'Cidade: ' + nomeCidade + '/' + nomeEstado;
+                                paragrafoCidade.innerHTML = 'Cidade: ' + nomeCidade;
                                 return false; // break
                             }
                         });
