@@ -28,8 +28,9 @@
         <button class="btn btn-block btn-primary" onClick="iniciarCaptura()">Obter localização</button><br/>
         <button class="btn btn-block btn-negative" onClick="pararCaptura()">Parar captura</button>
       </div>
-      <p class="content-padded" id="result" style="margin-top: 100px;">tttt</p>
-      <p class="content-padded" id="nome-cidade">trtr</p>
+      <p class="content-padded" id="result" style="margin-top: 100px;"></p>
+      <p class="content-padded" id="nome-cidade"></p>
+      <p class="content-padded" id="nome-estado"></p>
     </div>
     <script type="text/javascript">
         var watchID;
@@ -57,7 +58,8 @@
             var lng = parseFloat(position.coords.longitude);
 
             var latlng = new google.maps.LatLng(lat, lng);
-            var nomeCidade = "teste";            
+            var nomeCidade = "";    
+            var nomeEstado = "";        
             geocoder.geocode({'latLng': latlng}, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     if (results[0]) {
@@ -67,8 +69,14 @@
                             if (address_component.types[0] == "locality") {
                                 nomeCidade = address_component.long_name; // city
                                 var paragrafoCidade = document.getElementById("nome-cidade");
-                                var textoParagrafoCidade = 'Cidade: ' + nomeCidade;
-                                paragrafoCidade.innerHTML = textoParagrafoCidade;
+                                paragrafoCidade.innerHTML = 'Cidade: ' + nomeCidade;
+                                return false; // break
+                            }
+                            if (address_component.types[0] == "administrative_area_level_1") {
+                                alert(address_component.long_name);
+                                nomeEstado = address_component.long_name; // city
+                                var paragrafoEstado = document.getElementById("nome-estado");
+                                paragrafoEstado.innerHTML = 'Estado: ' + nomeEstado;
                                 return false; // break
                             }
                         });
