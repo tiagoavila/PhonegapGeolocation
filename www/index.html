@@ -28,8 +28,8 @@
         <button class="btn btn-block btn-primary" onClick="iniciarCaptura()">Obter localização</button><br/>
         <button class="btn btn-block btn-negative" onClick="pararCaptura()">Parar captura</button>
       </div>
-      <p class="content-padded" id="result" style="margin-top: 100px;"></p>
-      <p class="content-padded" id="nome-cidade"></p>
+      <p class="content-padded" id="result" style="margin-top: 100px;">tttt</p>
+      <p class="content-padded" id="nome-cidade">trtr</p>
     </div>
     <script type="text/javascript">
         var watchID;
@@ -40,6 +40,17 @@
         }
 
         function mostrarTela(position){
+            var html ='Latitude: ' + position.coords.latitude         + '<br />' +
+                      'Longitude: '         + position.coords.longitude         + '<br />' +
+                      'Altitude: '          + position.coords.altitude          + '<br />' +
+                      'Precisão: '          + position.coords.accuracy          + '<br />' +
+                      'Precisão de altitude: ' + position.coords.altitudeAccuracy  + '<br />' +
+                      'Direção: '           + position.coords.heading           + '<br />' +
+                      'Velocidade: '        + position.coords.speed             + '<br />' +
+                      'Timestamp: '         + new Date(position.timestamp)      + '<br />';
+            var result = document.getElementById("result");
+            result.innerHTML = html;
+
             //Obter cidade
             geocoder = new google.maps.Geocoder();
             var lat = parseFloat(position.coords.latitude);
@@ -48,14 +59,12 @@
             var latlng = new google.maps.LatLng(lat, lng);
             var nomeCidade = "";            
             geocoder.geocode({'latLng': latlng}, function(results, status) {
-                alert("opa");
               if (status == google.maps.GeocoderStatus.OK) {
                 if (results[0]) {
                   var arrAddress = results[0].address_components;
                   // iterate through address_component array
                   $.each(arrAddress, function (i, address_component) {
                     if (address_component.types[0] == "locality") {
-                      alert(address_component.long_name);
                       nomeCidade = address_component.long_name; // city
                       return false; // break
                     }
@@ -67,18 +76,8 @@
                 alert("Geocoder failed due to: " + status);
               }
             });
-
-            var html ='Latitude: ' + position.coords.latitude         + '<br />' +
-                      'Longitude: '         + position.coords.longitude         + '<br />' +
-                      'Altitude: '          + position.coords.altitude          + '<br />' +
-                      'Precisão: '          + position.coords.accuracy          + '<br />' +
-                      'Precisão de altitude: ' + position.coords.altitudeAccuracy  + '<br />' +
-                      'Direção: '           + position.coords.heading           + '<br />' +
-                      'Velocidade: '        + position.coords.speed             + '<br />' +
-                      'Timestamp: '         + new Date(position.timestamp)      + '<br />' +
-                      'Cidade: '         + nomeCidade + '<br />';
-            var result = document.getElementById("result");
-            result.innerHTML = html;
+            var paragrafoCidade = document.getElementById("nome-cidade");
+            paragrafoCidade.innerHTML = "Cidade: " + nomeCidade;
         }
 
         function fail(error){
